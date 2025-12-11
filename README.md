@@ -1,173 +1,172 @@
+# **Car Sales Performance Dashboard – README**
 
-# Car Sales Data Analytics Project – Power BI
-Overview
+## 📌 **Overview**
 
-This project demonstrates a complete end-to-end data analytics workflow using Power BI. It includes loading and cleaning a dataset, building a data model, creating DAX measures, designing an interactive dashboard, generating insights, and preparing a report and presentation.
-The goal is to analyse car sales performance and provide clear, actionable insights to support decision-making.
+This project analyzes car sales performance using Power BI. The goal is to track key business metrics such as total sales, average price, cars sold, and year-over-year performance. The project includes data loading, cleaning, KPI creation using DAX, interactive dashboard development, a detailed report, and a presentation built using Gamma.
 
-Dataset
+---
 
-Source: Car Sales Dataset (Excel/CSV)
-Contains fields such as:
+## 📊 **Dataset**
 
-Car ID, Date, Dealer Name
+The dataset contains detailed car sales information, including:
 
-Company, Model, Body Style, Color
+* Car model, body style, and color
+* Price and quantity sold
+* Dealer region
+* Company name
+* Sales date
 
-Engine, Transmission, Region
+The data was imported into Power BI and prepared using Power Query.
 
-Price ($), Customer Details
+---
 
-Data Cleaning Performed
+## 🛠 **Tools & Technologies**
 
-Removed duplicates and empty rows
+* Power BI Desktop – data modeling, visuals, KPI metrics
+* Power Query – data cleaning and transformations
+* DAX – KPI and measure creation
+* Gamma.app – presentation design
+* GitHub – documentation and version control
 
-Fixed incorrect data types (date, numeric, text)
+---
 
-Renamed and standardized columns
+## 🔍 **Project Steps**
 
-Created a Calendar table for time-intelligence
+### **1. Load Data into Power BI**
 
-Built structured relationships for accurate filtering
+* Imported the dataset into Power BI Desktop.
+* Validated data types and ensured the Date column supported time-intelligence functions.
 
-Tools Used
+### **2. Data Cleaning (Power Query)**
 
-Power BI Desktop – Data modeling, DAX, dashboards
+* Removed duplicates and corrected format issues.
+* Standardized color, body style, and company names.
+* Ensured Price and Date fields were correctly formatted.
 
-Power Query – Data cleaning and transformation
+### **3. Data Modeling**
 
-Gamma – Presentation creation
+* Created a **Calendar Table** for time-based analysis.
+* Defined relationships between the sales table and the calendar table.
+* Built clean model views for improved performance.
 
-Excel / CSV – Source dataset
+---
 
-GitHub – Documentation and version control
+## 📐 **4. KPI Development (DAX Measures)**
 
-Project Steps
-1. Load the Dataset
+The following DAX measures were used to calculate YTD, MTD, YOY growth, and variances for sales, average price, and cars sold.
 
-Imported the raw dataset into Power BI and reviewed structure and data quality.
+---
 
-2. Clean the Data in Power Query
+### 🧮 **Sales Measures**
 
-Removed duplicates and null rows
+```
+YTD Total Sales = TOTALYTD(SUM(car_data[Price ($)]),'Calender Table'[Date])
 
-Standardized naming conventions
-
-Converted column types
-
-Created a date table for YTD/MTD/YOY calculations
-
-3. Build the Data Model
-
-Designed a star schema
-
-Established relationships
-
-Marked Calendar table as the official date table
-
-Ensured proper filter direction for visuals
-
-4. Create DAX Measures
-
-Developed time-intelligence measures for YTD, MTD, YOY and comparison metrics.
-
-(See DAX Highlights section below.)
-
-5. Build the Dashboard
-
-Created two interactive pages:
-
-Overview Page
-
-YTD & MTD KPI cards
-
-YOY performance indicators
-
-Weekly sales trend
-
-Sales by Body Style
-
-Sales by Color
-
-Regional sales map
-
-Company-wise YTD summary
-
-Slicers for Body Style, Dealer, Engine, Transmission
-
-Details Page
-
-Full transaction-level table
-
-Includes model, body style, color, price, region, and sale date
-
-Supports drill-down and operational checks
-
-6. Add Page Navigation
-
-Added buttons for easy movement between the Overview and Details pages, creating a clean and intuitive experience.
-
-7. Create Report & Presentation
-
-Exported a written report summarising insights
-
-Designed a clean PPT-style presentation using Gamma
-
-Dashboard
-
-The dashboard provides a quick and interactive view of performance, helping users understand trends, compare companies, analyse customer preferences, and review detailed records.
-
-It is designed to support decisions in sales planning, inventory management, and marketing strategy.
-
-DAX Highlights
-
-These are some of the key DAX measures used in this project:
-
--- Sales Measures
-YTD Total Sales = TOTALYTD(SUM(car_data[Price ($)]), 'Calender Table'[Date])
 Sales Difference = [YTD Total Sales] - [PYTD Total Sales]
+
 YOY Sales Growth = [Sales Difference] / [PYTD Total Sales]
-MTD KPI = CONCATENATE("MTD Total Sales : ", FORMAT([MTD Total Sales] / 1000000, "$0.00M"))
 
--- Average Price Measures
+MTD KPI = CONCATENATE(
+    "MTD Total Sales : ",
+    FORMAT([MTD Total Sales] / 1000000, "$0.00M")
+)
+```
+
+---
+
+### 💰 **Average Price Measures**
+
+```
 YTD Avg Price = TOTALYTD([Avg Price], 'Calender Table'[Date])
+
 Avg Price Diff = [YTD Avg Price] - [PYTD Avg Price]
+
 YOY Avg Price Growth = [Avg Price Diff] / [PYTD Avg Price]
-MTD Avg Price KPI = CONCATENATE("MTD Avg Price : ", FORMAT([MTD Avg Price] / 1000, "$0.00K"))
 
--- Cars Sold Measures
+MTD Avg Price KPI = CONCATENATE(
+    "MTD Avg Price : ",
+    FORMAT([MTD Avg Price] / 1000, "$0.00K")
+)
+```
+
+---
+
+### 🚗 **Cars Sold Measures**
+
+```
 YTD Cars Sold = TOTALYTD(COUNT(car_data[Car_id]), 'Calender Table'[Date])
+
 Cars Sold Diff = [YTD Cars Sold] - [PYTD Cars Sold]
+
 YOY Car Sold Growth = [Cars Sold Diff] / [YTD Cars Sold]
-MTD Cars Sold KPI = CONCATENATE("MTD Cars Sold : ", FORMAT([MTD Cars Sold] / 1000, "$0.00K"))
 
-Results
+MTD Cars Sold KPI = CONCATENATE(
+    "MTD Cars Sold : ",
+    FORMAT([MTD Cars Sold] / 1000, "$0.00K")
+)
+```
 
-Clear visibility into YTD, MTD and YOY sales trends
+---
 
-Identification of top-selling body styles and colors
+## 📊 **5. Dashboard Overview**
 
-Understanding of strong and weak performing regions
+The Power BI dashboard highlights major KPIs and insights.
 
-Company-wise comparison to evaluate brand contribution
+### **Key Metrics**
 
-Insight into customer preferences and purchasing patterns
+* Total customers (cars sold)
+* YTD & MTD sales
+* YOY growth metrics
+* Average price trends
+* Cars sold breakdown
 
-Easy drill-down for transaction-level validation
+### **Visuals Included**
 
-How to Run This Project
-To View the Dashboard
+* Weekly YTD Sales Trend – line chart
+* Sales by Body Style – pie chart
+* Sales by Color – pie chart
+* Cars Sold by Region – map
+* Company-wise YTD Sales – table
+* Full Sales Detail Table – all transactional data
 
-Download the Car_Sales_Dashboard.pbix file
+### **Interactive Slicers**
 
-Open it in Power BI Desktop
+* Body style
+* Color
+* Dealer region
+* Company
+* Date
 
-Use slicers and navigation buttons to explore insights
+---
 
-To View the Report
+## 📈 **6. Results & Insights**
 
-Open the PDF included in the repository.
+* Identified top-performing car models and body styles.
+* Analyzed color preferences and their impact on sales.
+* Highlighted regions with the highest sales.
+* YOY trends helped identify growth areas and performance gaps.
+* KPIs provided visibility into sales, pricing, and dealership performance.
 
-To View the Presentation
+---
 
-Open the Gamma presentation link or PPT file
+## ▶ **7. How to Run This Project**
+
+### **1. Download the PBIX File**
+
+Open it in **Power BI Desktop**.
+
+### **2. Refresh the Data**
+
+Power Query will automatically run all transformations.
+
+### **3. Explore the Dashboard**
+
+Use slicers to filter by region, company, body style, color, or date.
+
+### **4. View the Report & PPT**
+
+* Open the included PDF project report.
+* Review the Gamma presentation link for summarized insights.
+
+---
+
